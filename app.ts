@@ -90,3 +90,67 @@ const update: updateSong = (songId, data) => {
 }
 
 update(2, { id: 2, title: "Eyes", duration: 10, genre: "rock" })
+
+// KLASY
+// Opcje dostępu
+// public - anyone can access
+// private - available only inside a class
+// protected - available inside a class and subclasses
+// readonly - property can't be modified
+// static - is available directly from class (without instantiation)
+
+// class Movie {
+//   constructor(private title: string) {}
+
+//   getTitle(): string {
+//     return this.title
+//   }
+// }
+
+// const movie1 = new Movie("Dragon Ball Extremum")
+// movie1.getTitle()
+
+// Akcesory: gettery (dostać się spoza klasy i nie zmieniając jej trybu dostępu) i settery -> specjalne rodzaje metod
+// class MovieNew {
+//   constructor(private _title: string) {}
+
+//   set title(title: string) {
+//     this._title = title
+//   }
+
+//   get title(): string {
+//     return this._title
+//   }
+// }
+
+class Media {
+  private progress = 0
+
+  constructor(
+    readonly name: string,
+    private readonly type: string,
+    private readonly genre: string,
+    private readonly duration: number,
+  ) {}
+
+  play(): void {
+    this.progress += 1
+  }
+}
+
+// class Movie extends Media {
+//   constructor(name: string, genre: string, duration: number) {
+//     super(name, "movie", genre, duration)
+//   }
+// }
+
+// class Song extends Media {
+//   constructor(name: string, genre: string, duration: number) {
+//     super(name, "song", genre, duration)
+//   }
+// }
+
+// const bestMovieEver = new Movie("Peaceful Warior", "Drama", 7200)
+// const bestSongEver = new Song("Heart of Courage", "Cinematic", 117)
+
+// nadawanie kształtu klasom (alternatywa do określania kształtu klas too interfejsy), które po niej dziedziczą, klasy bazowe po których można dziedziczyć, ale na ich podstawie nie można tworzyć nowych obiektów
