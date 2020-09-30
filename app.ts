@@ -154,3 +154,50 @@ class Media {
 // const bestSongEver = new Song("Heart of Courage", "Cinematic", 117)
 
 // nadawanie kształtu klasom (alternatywa do określania kształtu klas too interfejsy), które po niej dziedziczą, klasy bazowe po których można dziedziczyć, ale na ich podstawie nie można tworzyć nowych obiektów
+
+// INTEREFEJSY - w jaki sposób mają wyglądać typ, funkcja lub klasa (opisują wygląd, ale nie mieszają się do implementacji)
+
+interface User {
+  name: string
+  email: string
+}
+
+interface Admin extends User {
+  is_admin: boolean
+  specialpower?: boolean
+}
+
+function test(admin: Admin): string {
+  return admin.name
+}
+
+test({ name: "Adam", email: "adam@gmail.com", is_admin: true })
+
+// INTERFEJSY FUNKCJI
+interface Playable {
+  // interfejs parametru
+  name: string
+  play?(): string
+}
+
+interface Play {
+  // interfejs funkcji
+  (media: Playable): string
+}
+
+const playMedia: Play = function play(media: Playable): string {
+  if (media.play) {
+    return media.play()
+  }
+
+  return `Can't play ${media.name}`
+}
+
+const movie: Playable = {
+  name: "Alalala",
+  play() {
+    return `Playing ${this.name}`
+  },
+}
+
+playMedia(movie)
