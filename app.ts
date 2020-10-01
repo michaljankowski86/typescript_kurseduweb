@@ -123,20 +123,20 @@ update(2, { id: 2, title: "Eyes", duration: 10, genre: "rock" })
 //   }
 // }
 
-class Media {
-  private progress = 0
+// class Media {
+//   private progress = 0
 
-  constructor(
-    readonly name: string,
-    private readonly type: string,
-    private readonly genre: string,
-    private readonly duration: number,
-  ) {}
+//   constructor(
+//     readonly name: string,
+//     private readonly type: string,
+//     private readonly genre: string,
+//     private readonly duration: number,
+//   ) {}
 
-  play(): void {
-    this.progress += 1
-  }
-}
+//   play(): void {
+//     this.progress += 1
+//   }
+// }
 
 // class Movie extends Media {
 //   constructor(name: string, genre: string, duration: number) {
@@ -155,7 +155,7 @@ class Media {
 
 // nadawanie kształtu klasom (alternatywa do określania kształtu klas too interfejsy), które po niej dziedziczą, klasy bazowe po których można dziedziczyć, ale na ich podstawie nie można tworzyć nowych obiektów
 
-// INTEREFEJSY - w jaki sposób mają wyglądać typ, funkcja lub klasa (opisują wygląd, ale nie mieszają się do implementacji)
+// INTERFEJSY - w jaki sposób mają wyglądać typ, funkcja lub klasa (opisują wygląd, ale nie mieszają się do implementacji)
 
 interface User {
   name: string
@@ -173,31 +173,54 @@ function test(admin: Admin): string {
 
 test({ name: "Adam", email: "adam@gmail.com", is_admin: true })
 
-// INTERFEJSY FUNKCJI
+// // INTERFEJSY FUNKCJI
+// interface Playable {
+//   // interfejs parametru
+//   name: string
+//   play?(): string
+// }
+
+// interface Play {
+//   // interfejs funkcji
+//   (media: Playable): string
+// }
+
+// const playMedia: Play = function play(media: Playable): string {
+//   if (media.play) {
+//     return media.play()
+//   }
+
+//   return `Can't play ${media.name}`
+// }
+
+// const movie: Playable = {
+//   name: "Alalala",
+//   play() {
+//     return `Playing ${this.name}`
+//   },
+// }
+
+// playMedia(movie)
+
+// INTERFEJSY KLAS - implementacja interefejsu przez klasę
 interface Playable {
   // interfejs parametru
   name: string
-  play?(): string
+  play(): string
 }
 
-interface Play {
-  // interfejs funkcji
-  (media: Playable): string
-}
+class Movie implements Playable {
+  constructor(public name: string) {}
 
-const playMedia: Play = function play(media: Playable): string {
-  if (media.play) {
-    return media.play()
-  }
-
-  return `Can't play ${media.name}`
-}
-
-const movie: Playable = {
-  name: "Alalala",
-  play() {
+  play(): string {
     return `Playing ${this.name}`
-  },
+  }
 }
 
-playMedia(movie)
+function play(media: Playable): string {
+  return media.play()
+}
+
+const movie = new Movie("Lord of the ring")
+
+play(movie)
